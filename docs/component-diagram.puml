@@ -1,0 +1,84 @@
+@startuml
+left to right direction
+skinparam componentStyle rectangle
+skinparam backgroundColor #F9F9F9
+skinparam packageBackgroundColor #F5F5FF
+skinparam packageBorderColor #4682B4
+skinparam componentBorderColor #4682B4
+skinparam componentFontColor #4682B4
+skinparam componentBorderThickness 2
+skinparam componentFontSize 12
+skinparam component {
+    BackgroundColor #FFFFFF
+    BorderColor #4682B4
+    FontColor #4682B4
+}
+
+package "사용자" <<UserPackage>> {
+    [회원가입] <<UserComponent>>
+    [로그인] <<UserComponent>>
+    [OAuth 로그인] <<UserComponent>>
+    [프로필 관리] <<UserComponent>>
+    [비밀번호 찾기] <<UserComponent>>
+}
+
+package "연구자" <<ResearcherPackage>> {
+    [워크스페이스 생성] <<ResearcherComponent>>
+    [실험 생성] <<ResearcherComponent>>
+    [실험 관리] <<ResearcherComponent>>
+    [참여자 목록] <<ResearcherComponent>>
+    [연구자 채팅] <<ResearcherComponent>>
+}
+
+package "참여자" <<ParticipantPackage>> {
+    [실험 탐색] <<ParticipantComponent>>
+    [참여 관리] <<ParticipantComponent>>
+    [참여자 채팅] <<ParticipantComponent>>
+'    [알림] <<ParticipantComponent>>
+}
+
+package "인증" <<AuthPackage>> {
+    [OAuth] <<AuthComponent>>
+    [이메일 인증] <<AuthComponent>>
+}
+
+package "알림" <<NotificationPackage>> {
+    [푸시 알림] <<NotificationComponent>>
+}
+
+package "외부 서비스" <<External>> {
+    [온라인 미팅 서비스] <<ExternalComponent>>
+}
+
+
+' 사용자 컴포넌트
+[회원가입] --> [OAuth] : Google OAuth
+[회원가입] <--> [이메일 인증] : 이메일 인증
+[비밀번호 찾기] <--> [이메일 인증] : 비밀번호 복구 이메일 전송
+
+' 연구자 컴포넌트
+[워크스페이스 생성] --> [실험 생성] : 새로운 워크스페이스 생성
+[실험 생성] --> [실험 관리] : 새로운 실험 생성
+[실험 관리] --> [참여자 목록] : 참여자 조회
+[실험 관리] --> [연구자 채팅] : 참여자와 1:1 채팅
+[실험 관리] --> [온라인 미팅 서비스] : 미팅 링크 설정
+
+' 참여자 컴포넌트
+[실험 탐색] --> [실험 관리] : 실험 세부 정보 확인
+[실험 탐색] --> [참여 관리] : 실험 참여 신청
+[참여 관리] --> [참여자 채팅] : 연구자와 1:1 채팅
+[참여 관리] --> [온라인 미팅 서비스] : 미팅 링크 접속
+
+' 인증 컴포넌트
+[OAuth] --> [로그인] : 사용자 인증
+[OAuth] --> [OAuth 로그인] : Google OAuth
+
+' 노트 추가
+note right of [푸시 알림]
+    알림 예시:
+    - 실험 참여 상태 변경
+    - 실험 업데이트
+    - 채팅 업데이트
+end note
+
+@enduml
