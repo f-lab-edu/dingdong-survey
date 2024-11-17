@@ -27,14 +27,11 @@ package "연구자" <<ResearcherPackage>> {
     [실험 생성] <<ResearcherComponent>>
     [실험 관리] <<ResearcherComponent>>
     [참여자 목록] <<ResearcherComponent>>
-    [연구자 채팅] <<ResearcherComponent>>
 }
 
 package "참여자" <<ParticipantPackage>> {
     [실험 탐색] <<ParticipantComponent>>
     [참여 관리] <<ParticipantComponent>>
-    [참여자 채팅] <<ParticipantComponent>>
-'    [알림] <<ParticipantComponent>>
 }
 
 package "인증" <<AuthPackage>> {
@@ -50,6 +47,9 @@ package "외부 서비스" <<External>> {
     [온라인 미팅 서비스] <<ExternalComponent>>
 }
 
+package "채팅" <<ChatPackage>> {
+    [1:1 채팅] <<ChatComponent>>
+}
 
 ' 사용자 컴포넌트
 [회원가입] --> [OAuth] : Google OAuth
@@ -60,13 +60,13 @@ package "외부 서비스" <<External>> {
 [워크스페이스 생성] --> [실험 생성] : 새로운 워크스페이스 생성
 [실험 생성] --> [실험 관리] : 새로운 실험 생성
 [실험 관리] --> [참여자 목록] : 참여자 조회
-[실험 관리] --> [연구자 채팅] : 참여자와 1:1 채팅
+[실험 관리] --> [채팅] : 참여자와 1:1 채팅
 [실험 관리] --> [온라인 미팅 서비스] : 미팅 링크 설정
 
 ' 참여자 컴포넌트
 [실험 탐색] --> [실험 관리] : 실험 세부 정보 확인
 [실험 탐색] --> [참여 관리] : 실험 참여 신청
-[참여 관리] --> [참여자 채팅] : 연구자와 1:1 채팅
+[참여 관리] --> [채팅] : 연구자와 1:1 채팅
 [참여 관리] --> [온라인 미팅 서비스] : 미팅 링크 접속
 
 ' 인증 컴포넌트
