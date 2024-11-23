@@ -1,19 +1,41 @@
 plugins {
-    id 'java'
+	id 'java'
+	id 'org.springframework.boot' version '3.4.0'
+	id 'io.spring.dependency-management' version '1.1.6'
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	compileOnly("org.projectlombok:lombok:1.18.22")
+	compileOnly("javax.servlet:javax.servlet-api:3.1.0")
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Tomcat Jasper 의존성 주입
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+	// JSP 사용을 위해 필요
+	implementation 'jakarta.servlet:jakarta.servlet-api'
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 }
 
-test {
-    useJUnitPlatform()
+tasks.named('test') {
+	useJUnitPlatform()
 }
