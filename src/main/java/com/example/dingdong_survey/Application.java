@@ -1,6 +1,6 @@
 package com.example.dingdong_survey;
 
-
+import com.example.dingdong_survey.config.WebConfig;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -28,6 +28,7 @@ public class Application {
 
         // 서블릿 매핑
         context.addServletMappingDecoded("/", "dispatcher");
+        tomcat.getConnector();
 
         // 톰캣 서버 시작
         tomcat.start();

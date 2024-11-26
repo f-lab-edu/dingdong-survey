@@ -1,4 +1,4 @@
-package com.example.dingdong_survey;
+package com.example.dingdong_survey.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
